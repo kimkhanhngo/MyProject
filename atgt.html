@@ -1,0 +1,2678 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <link rel="icon" type="image/png" href="https://kimkhanhngo.github.io/MyProject/road.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>An Toàn Giao Thông – Cho Nụ Cười Ngày Mai</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800;900&family=Nunito:wght@300;400;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --sun: #FFD93D;
+      --sky: #0A2342;
+      --road: #1B3A5C;
+      --orange: #FF6B35;
+      --green: #06D6A0;
+      --red: #EF233C;
+      --white: #FDFCF7;
+      --light: #F0F4FF;
+      --gray: #8899AA;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--white);
+      color: var(--sky);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 999;
+      background: rgba(10, 35, 66, 0.97);
+      backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5vw;
+      height: 64px;
+      border-bottom: 3px solid var(--sun);
+    }
+
+    .nav-logo {
+      font-family: 'Baloo 2', cursive;
+      font-weight: 900;
+      font-size: 1.25rem;
+      color: var(--sun);
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .nav-logo span {
+      font-size: 1.5rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: rgba(255, 255, 255, 0.75);
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 6px 10px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--sun);
+      background: rgba(255, 217, 61, 0.1);
+    }
+
+    /* ── PAGES ── */
+    .page {
+      display: none;
+      min-height: 100vh;
+      padding-top: 64px;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    /* ── HERO ── */
+    #page-home {
+      background: var(--sky);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #hero-inner {
+      min-height: calc(100vh - 64px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .hero-road {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 140px;
+      background: #111C2D;
+    }
+
+    .road-line {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      height: 6px;
+      width: 100%;
+      background: repeating-linear-gradient(90deg,
+          var(--sun) 0, var(--sun) 60px, transparent 60px, transparent 100px);
+      transform: translateY(-50%);
+      animation: roadScroll 3s linear infinite;
+    }
+
+    @keyframes roadScroll {
+      from {
+        background-position: 0 0;
+      }
+
+      to {
+        background-position: 100px 0;
+      }
+    }
+
+    .stars {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .star {
+      position: absolute;
+      border-radius: 50%;
+      background: white;
+      opacity: 0;
+      animation: twinkle var(--d, 3s) var(--delay, 0s) ease-in-out infinite;
+    }
+
+    @keyframes twinkle {
+
+      0%,
+      100% {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+
+      50% {
+        opacity: 0.7;
+        transform: scale(1);
+      }
+    }
+
+    .hero-sun {
+      position: absolute;
+      top: 80px;
+      right: 15vw;
+      width: 120px;
+      height: 120px;
+      background: var(--sun);
+      border-radius: 50%;
+      box-shadow: 0 0 60px 20px rgba(255, 217, 61, 0.4);
+      animation: sunPulse 4s ease-in-out infinite;
+    }
+
+    @keyframes sunPulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 60px 20px rgba(255, 217, 61, 0.4);
+      }
+
+      50% {
+        box-shadow: 0 0 90px 35px rgba(255, 217, 61, 0.6);
+      }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: var(--orange);
+      color: white;
+      font-weight: 800;
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      padding: 6px 16px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .hero-title {
+      font-family: 'Baloo 2', cursive;
+      font-weight: 900;
+      font-size: clamp(2.8rem, 7vw, 6rem);
+      color: white;
+      line-height: 1.05;
+      margin-bottom: 16px;
+      animation: fadeUp 0.8s 0.15s ease both;
+    }
+
+    .hero-title .highlight {
+      color: var(--sun);
+      display: block;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      color: rgba(255, 255, 255, 0.7);
+      max-width: 560px;
+      margin: 0 auto 40px;
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--sun);
+      color: var(--sky);
+      font-family: 'Baloo 2', cursive;
+      font-weight: 800;
+      font-size: 1rem;
+      padding: 14px 32px;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      animation: fadeUp 0.8s 0.45s ease both;
+      box-shadow: 0 8px 30px rgba(255, 217, 61, 0.4);
+      cursor: pointer;
+      border: none;
+    }
+
+    .hero-cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 40px rgba(255, 217, 61, 0.5);
+    }
+
+    .vehicle {
+      position: absolute;
+      bottom: 20px;
+      font-size: 2.5rem;
+      animation: drive linear infinite;
+    }
+
+    .v1 {
+      animation-duration: 12s;
+      left: -80px;
+    }
+
+    .v2 {
+      animation-duration: 18s;
+      left: -80px;
+      animation-delay: -7s;
+      font-size: 2rem;
+      bottom: 30px;
+    }
+
+    @keyframes drive {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(110vw);
+      }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ── HOME – Quick Nav Cards ── */
+    .home-nav-section {
+      background: var(--white);
+      padding: 80px 5vw;
+    }
+
+    .home-nav-title {
+      font-family: 'Baloo 2', cursive;
+      font-weight: 900;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      text-align: center;
+      margin-bottom: 12px;
+      color: var(--sky);
+    }
+
+    .home-nav-sub {
+      text-align: center;
+      color: var(--gray);
+      font-size: 1rem;
+      margin-bottom: 48px;
+    }
+
+    .home-nav-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .hn-card {
+      border-radius: 20px;
+      background: white;
+      box-shadow: 0 4px 24px rgba(10, 35, 66, 0.07);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.25s, box-shadow 0.25s;
+      border-bottom: 4px solid var(--orange);
+    }
+
+    .hn-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 14px 40px rgba(10, 35, 66, 0.14);
+    }
+
+    .hn-card-top {
+      padding: 28px 24px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .hn-emoji {
+      font-size: 2.4rem;
+    }
+
+    .hn-card-top h3 {
+      font-family: 'Baloo 2', cursive;
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--sky);
+    }
+
+    .hn-card-top p {
+      font-size: 0.82rem;
+      color: var(--gray);
+      margin-top: 3px;
+    }
+
+    .hn-card-footer {
+      background: var(--light);
+      padding: 12px 24px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--orange);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+
+
+    /* ── SECTIONS ── */
+    .page-content {
+      padding: 60px 5vw 100px;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--orange);
+      margin-bottom: 12px;
+    }
+
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 3px;
+      background: var(--orange);
+      border-radius: 2px;
+    }
+
+    .section-title {
+      font-family: 'Baloo 2', cursive;
+      font-weight: 900;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .section-desc {
+      font-size: 1.05rem;
+      color: #445;
+      max-width: 620px;
+      line-height: 1.8;
+      margin-bottom: 40px;
+    }
+
+    /* ── SECTION IMAGES ── */
+    .section-image-banner {
+      width: 100%;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .section-image-banner img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .section-image-banner .img-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(10, 35, 66, 0.8), transparent);
+      padding: 20px 24px 16px;
+      color: white;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    .section-video-embed {
+      margin: 40px 0;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 6px 30px rgba(10, 35, 66, 0.12);
+    }
+
+    .section-video-embed iframe {
+      width: 100%;
+      aspect-ratio: 16/9;
+      border: none;
+      display: block;
+    }
+
+    .section-video-embed .video-label {
+      background: var(--sky);
+      color: white;
+      padding: 14px 20px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ── IMPORTANCE ── */
+    .page-importance {
+      background: var(--light);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 48px;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 20px;
+      padding: 28px 24px;
+      border-bottom: 4px solid var(--sun);
+      box-shadow: 0 4px 20px rgba(10, 35, 66, 0.06);
+      transition: transform 0.2s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .stat-num {
+      font-family: 'Baloo 2', cursive;
+      font-weight: 900;
+      font-size: 2.6rem;
+      color: var(--orange);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--gray);
+      margin-top: 6px;
+      font-weight: 600;
+    }
+
+    .rules-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .rule-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: white;
+      border-radius: 14px;
+      padding: 18px 20px;
+      box-shadow: 0 2px 12px rgba(10, 35, 66, 0.05);
+      transition: box-shadow 0.2s;
+    }
+
+    .rule-item:hover {
+      box-shadow: 0 6px 24px rgba(10, 35, 66, 0.1);
+    }
+
+    .rule-icon {
+      font-size: 1.8rem;
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      background: var(--light);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .rule-text strong {
+      display: block;
+      font-size: 0.95rem;
+      color: var(--sky);
+      margin-bottom: 4px;
+    }
+
+    .rule-text span {
+      font-size: 0.85rem;
+      color: var(--gray);
+    }
+
+    /* ── SIGNALS ── */
+    .page-signals {
+      background: var(--sky);
+      color: white;
+    }
+
+    .page-signals .section-title {
+      color: white;
+    }
+
+    .page-signals .section-desc {
+      color: rgba(255, 255, 255, 0.65);
+    }
+
+    .page-signals .section-label {
+      color: var(--sun);
+    }
+
+    .page-signals .section-label::before {
+      background: var(--sun);
+    }
+
+    .signal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+    }
+
+    .signal-card {
+      border-radius: 24px;
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.25s;
+    }
+
+    .signal-card:hover {
+      transform: scale(1.03);
+    }
+
+    .signal-top {
+      padding: 32px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+    }
+
+    .signal-icon-wrap {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.8rem;
+      margin-bottom: 4px;
+    }
+
+    .signal-card h3 {
+      font-family: 'Baloo 2', cursive;
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: white;
+    }
+
+    .signal-card p {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.75);
+      line-height: 1.6;
+    }
+
+    .card-red {
+      background: linear-gradient(135deg, #8B1A2A, #C0253D);
+    }
+
+    .card-yellow {
+      background: linear-gradient(135deg, #7A6000, #B38F00);
+    }
+
+    .card-green {
+      background: linear-gradient(135deg, #024A34, #047A55);
+    }
+
+    .card-blue {
+      background: linear-gradient(135deg, #0A2A60, #1346A0);
+    }
+
+    .card-red .signal-icon-wrap {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .card-yellow .signal-icon-wrap {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .card-green .signal-icon-wrap {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .card-blue .signal-icon-wrap {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .sign-types {
+      margin-top: 48px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .sign-type {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: background 0.2s;
+    }
+
+    .sign-type:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .sign-type .emoji {
+      font-size: 2rem;
+    }
+
+    .sign-type strong {
+      display: block;
+      color: var(--sun);
+      font-size: 0.9rem;
+      margin-bottom: 2px;
+    }
+
+    .sign-type span {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* ── PREDICTION ── */
+    .page-prediction {
+      background: var(--white);
+    }
+
+    .danger-zones {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .danger-card {
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(10, 35, 66, 0.08);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .danger-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(10, 35, 66, 0.15);
+    }
+
+    .danger-header {
+      padding: 24px 24px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .danger-header .emoji {
+      font-size: 2.2rem;
+    }
+
+    .danger-header h3 {
+      font-family: 'Baloo 2', cursive;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: white;
+    }
+
+    .danger-body {
+      background: white;
+      padding: 18px 24px 24px;
+    }
+
+    .danger-body ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .danger-body li {
+      padding: 7px 0;
+      border-bottom: 1px solid #f0f0f5;
+      font-size: 0.88rem;
+      color: #445;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .danger-body li:last-child {
+      border-bottom: none;
+    }
+
+    .danger-body li::before {
+      content: '→';
+      color: var(--orange);
+      font-weight: 900;
+    }
+
+    .dh1 {
+      background: linear-gradient(135deg, #C0253D, #E83B5A);
+    }
+
+    .dh2 {
+      background: linear-gradient(135deg, #7A5200, #C07A00);
+    }
+
+    .dh3 {
+      background: linear-gradient(135deg, #024A60, #0375A0);
+    }
+
+    .dh4 {
+      background: linear-gradient(135deg, #2A0A60, #5020A0);
+    }
+
+    .tips-banner {
+      margin-top: 40px;
+      background: linear-gradient(135deg, var(--sky), #1B3A5C);
+      border-radius: 24px;
+      padding: 36px 40px;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .tips-banner .big-icon {
+      font-size: 4rem;
+      flex-shrink: 0;
+    }
+
+    .tips-banner h3 {
+      font-family: 'Baloo 2', cursive;
+      font-weight: 900;
+      color: var(--sun);
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .tips-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .pill {
+      background: rgba(255, 217, 61, 0.15);
+      border: 1px solid rgba(255, 217, 61, 0.3);
+      color: var(--sun);
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    /* ── BICYCLE ── */
+    .page-bicycle {
+      background: #F0FFF8;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    @media (max-width: 768px) {
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .checklist {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: white;
+      border-radius: 14px;
+      padding: 14px 18px;
+      box-shadow: 0 2px 10px rgba(6, 214, 160, 0.08);
+      font-size: 0.92rem;
+      color: #334;
+      border-left: 4px solid var(--green);
+      transition: transform 0.2s;
+    }
+
+    .checklist li:hover {
+      transform: translateX(4px);
+    }
+
+    .checklist li .ci {
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .gear-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .gear-item {
+      background: white;
+      border-radius: 16px;
+      padding: 20px 16px;
+      text-align: center;
+      box-shadow: 0 2px 12px rgba(6, 214, 160, 0.08);
+      transition: transform 0.2s;
+    }
+
+    .gear-item:hover {
+      transform: translateY(-4px);
+    }
+
+    .gear-item .gicon {
+      font-size: 2.5rem;
+      margin-bottom: 8px;
+    }
+
+    .gear-item strong {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--sky);
+    }
+
+    .gear-item span {
+      font-size: 0.8rem;
+      color: var(--gray);
+    }
+
+    /* ── MOTORBIKE ── */
+    .page-motorbike {
+      background: var(--sky);
+      color: white;
+    }
+
+    .page-motorbike .section-title {
+      color: white;
+    }
+
+    .page-motorbike .section-desc {
+      color: rgba(255, 255, 255, 0.65);
+    }
+
+    .page-motorbike .section-label {
+      color: var(--sun);
+    }
+
+    .page-motorbike .section-label::before {
+      background: var(--sun);
+    }
+
+    .steps-flow {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0;
+      position: relative;
+    }
+
+    .steps-flow::before {
+      content: '';
+      position: absolute;
+      top: 44px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: rgba(255, 217, 61, 0.3);
+      z-index: 0;
+    }
+
+    .step-item {
+      text-align: center;
+      padding: 0 20px 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step-num {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      background: var(--sun);
+      color: var(--sky);
+      font-family: 'Baloo 2', cursive;
+      font-weight: 900;
+      font-size: 1.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      box-shadow: 0 0 0 8px rgba(255, 217, 61, 0.2);
+      position: relative;
+    }
+
+    .step-num .semoji {
+      position: absolute;
+      bottom: -6px;
+      right: -6px;
+      font-size: 1.3rem;
+      background: var(--sky);
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .step-item h3 {
+      color: var(--sun);
+      font-family: 'Baloo 2', cursive;
+      font-weight: 800;
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+
+    .step-item p {
+      font-size: 0.83rem;
+      color: rgba(255, 255, 255, 0.65);
+      line-height: 1.6;
+    }
+
+    .moto-rules {
+      margin-top: 48px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .moto-rule {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-top: 3px solid var(--orange);
+      border-radius: 16px;
+      padding: 20px;
+      transition: background 0.2s;
+    }
+
+    .moto-rule:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .moto-rule .ri {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .moto-rule strong {
+      display: block;
+      color: white;
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+    }
+
+    .moto-rule span {
+      font-size: 0.83rem;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.5;
+    }
+
+    /* ── RAIL-WATER ── */
+    .page-rail {
+      background: white;
+    }
+
+    .transport-tabs {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 36px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      padding: 10px 22px;
+      border-radius: 50px;
+      border: 2px solid var(--light);
+      background: var(--light);
+      color: var(--sky);
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    .tab-btn.active {
+      background: var(--sky);
+      color: white;
+      border-color: var(--sky);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+      animation: fadeUp 0.4s ease;
+    }
+
+    .rail-water-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .rw-card {
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(10, 35, 66, 0.07);
+    }
+
+    .rw-header {
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      color: white;
+    }
+
+    .rw-header .ricon {
+      font-size: 2.5rem;
+    }
+
+    .rw-header h3 {
+      font-family: 'Baloo 2', cursive;
+      font-weight: 800;
+      font-size: 1.15rem;
+    }
+
+    .rw-header p {
+      font-size: 0.8rem;
+      opacity: 0.8;
+      margin-top: 2px;
+    }
+
+    .rw-body {
+      background: var(--light);
+      padding: 20px 24px;
+    }
+
+    .rw-rule {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 12px;
+      font-size: 0.88rem;
+      color: #334;
+    }
+
+    .rw-rule:last-child {
+      margin-bottom: 0;
+    }
+
+    .rw-rule .dot {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 900;
+      color: white;
+      margin-top: 1px;
+    }
+
+    .warn-box {
+      margin-top: 36px;
+      background: linear-gradient(135deg, #FFF3E0, #FFE0B2);
+      border-radius: 20px;
+      border-left: 6px solid var(--orange);
+      padding: 28px 32px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .warn-box .wi {
+      font-size: 3rem;
+    }
+
+    .warn-box h3 {
+      font-family: 'Baloo 2', cursive;
+      font-weight: 800;
+      color: #7A3500;
+      font-size: 1.2rem;
+      margin-bottom: 6px;
+    }
+
+    .warn-box p {
+      color: #5A3000;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #060F1C;
+      color: rgba(255, 255, 255, 0.55);
+    }
+
+    .footer-main {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding: 64px 5vw 48px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    @media (max-width: 900px) {
+      .footer-main {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .footer-main {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        padding: 40px 5vw 32px;
+      }
+    }
+
+    .footer-logo {
+      font-family: 'Baloo 2', cursive;
+      font-weight: 900;
+      color: var(--sun);
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .footer-tagline {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.5);
+      max-width: 280px;
+      margin-bottom: 20px;
+    }
+
+    .footer-hotline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 107, 53, 0.15);
+      border: 1px solid rgba(255, 107, 53, 0.3);
+      border-radius: 10px;
+      padding: 10px 16px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--orange);
+    }
+
+    .footer-col h4 {
+      font-family: 'Baloo 2', cursive;
+      font-weight: 800;
+      color: white;
+      font-size: 1rem;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid rgba(255, 217, 61, 0.3);
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-col ul li a,
+    .footer-col ul li span {
+      font-size: 0.87rem;
+      color: rgba(255, 255, 255, 0.5);
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .footer-col ul li a:hover,
+    .footer-col ul li span:hover {
+      color: var(--sun);
+    }
+
+    .footer-emergency {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .em-badge {
+      background: rgba(239, 35, 60, 0.15);
+      border: 1px solid rgba(239, 35, 60, 0.3);
+      border-radius: 8px;
+      padding: 8px 14px;
+      text-align: center;
+    }
+
+    .em-badge strong {
+      display: block;
+      font-size: 1.1rem;
+      color: var(--red);
+      font-family: 'Baloo 2', cursive;
+    }
+
+    .em-badge span {
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .footer-bottom {
+      padding: 20px 5vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-bottom p {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    .footer-bottom .made-with {
+      color: rgba(255, 255, 255, 0.35);
+      font-size: 0.8rem;
+    }
+
+    .footer-bottom .made-with span {
+      color: var(--red);
+    }
+
+    /* ── HAMBURGER MENU ── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 8px;
+      background: transparent;
+      border: none;
+      z-index: 1001;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--sun);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    .hamburger.open span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.open span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* Mobile drawer */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(6, 15, 28, 0.98);
+      z-index: 998;
+      flex-direction: column;
+      padding: 24px 5vw;
+      gap: 6px;
+      overflow-y: auto;
+      animation: slideDown 0.25s ease;
+    }
+
+    .mobile-menu.open {
+      display: flex;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .mobile-menu a {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1.1rem;
+      font-weight: 700;
+      padding: 16px 20px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .mobile-menu a:hover,
+    .mobile-menu a.active {
+      background: rgba(255, 217, 61, 0.1);
+      color: var(--sun);
+      border-color: rgba(255, 217, 61, 0.2);
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--light);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--orange);
+      border-radius: 3px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .page-content {
+        padding: 40px 4vw 80px;
+      }
+
+      .home-nav-section {
+        padding: 48px 4vw;
+      }
+
+      .home-nav-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .section-image-banner img {
+        height: 200px;
+      }
+
+      .two-col {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .steps-flow::before {
+        display: none;
+      }
+
+      .tips-banner {
+        flex-direction: column;
+        gap: 16px;
+        padding: 24px;
+      }
+
+      .warn-box {
+        flex-direction: column;
+        gap: 12px;
+        padding: 20px;
+      }
+
+      .signal-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+
+      .danger-zones {
+        grid-template-columns: 1fr;
+      }
+
+      .moto-rules {
+        grid-template-columns: 1fr;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .rail-water-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gear-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .hero-title {
+        font-size: clamp(2rem, 8vw, 3.5rem);
+      }
+
+      .hero-sun {
+        width: 80px;
+        height: 80px;
+        top: 50px;
+        right: 8vw;
+      }
+
+      .section-video-embed {
+        margin: 24px 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .signal-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gear-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .home-nav-section {
+        padding: 36px 4vw;
+      }
+
+      .hn-card-top {
+        gap: 12px;
+      }
+
+      .hn-emoji {
+        font-size: 1.8rem;
+      }
+
+      .footer-emergency {
+        flex-direction: row;
+      }
+
+      .sign-types {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo" onclick="showPage('home')"><span>🛡️</span> ATGT · Nụ Cười Ngày Mai</div>
+    <div class="nav-links">
+      <a onclick="showPage('home')" data-page="home">🏠 Trang Chủ</a>
+      <a onclick="showPage('importance')" data-page="importance">Tầm Quan Trọng</a>
+      <a onclick="showPage('signals')" data-page="signals">Báo Hiệu</a>
+      <a onclick="showPage('prediction')" data-page="prediction">Dự Đoán & Phòng Tránh</a>
+      <a onclick="showPage('bicycle')" data-page="bicycle">Xe Đạp</a>
+      <a onclick="showPage('motorbike')" data-page="motorbike">Xe Máy</a>
+      <a onclick="showPage('rail')" data-page="rail">Đường Sắt & Thủy</a>
+    </div>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a onclick="showPage('home');toggleMenu()" data-page="home">🏠 Trang Chủ</a>
+    <a onclick="showPage('importance');toggleMenu()" data-page="importance">🛡️ Tầm Quan Trọng</a>
+    <a onclick="showPage('signals');toggleMenu()" data-page="signals">🚦 Báo Hiệu Giao Thông</a>
+    <a onclick="showPage('prediction');toggleMenu()" data-page="prediction">🔮 Dự Đoán & Phòng Tránh</a>
+    <a onclick="showPage('bicycle');toggleMenu()" data-page="bicycle">🚲 Xe Đạp & Xe Điện</a>
+    <a onclick="showPage('motorbike');toggleMenu()" data-page="motorbike">🏍️ Xe Mô Tô & Xe Máy</a>
+    <a onclick="showPage('rail');toggleMenu()" data-page="rail">🚢 Đường Sắt & Đường Thủy</a>
+  </div>
+
+  <!-- ═══════════════ TRANG CHỦ ═══════════════ -->
+  <div id="page-home" class="page active">
+
+    <!-- Hero -->
+    <div id="hero-inner">
+      <div class="stars" id="stars"></div>
+      <div class="hero-sun"></div>
+      <div class="hero-content">
+        <div class="hero-tag">An Toàn Giao Thông Việt Nam</div>
+        <h1 class="hero-title">
+          Hành Trình An Toàn
+          <span class="highlight">Cho Nụ Cười Ngày Mai</span>
+        </h1>
+        <p class="hero-subtitle">
+          Mỗi chuyến đi an toàn là một nụ cười được giữ lại. Hãy cùng nhau xây dựng
+          văn hóa giao thông văn minh, an toàn cho bản thân và cộng đồng.
+        </p>
+        <button class="hero-cta" onclick="showPage('importance')">Khám phá ngay →</button>
+      </div>
+      <div class="hero-road">
+        <div class="road-line"></div>
+      </div>
+      <div class="vehicle v1">🚗</div>
+      <div class="vehicle v2">🚌</div>
+    </div>
+
+    <!-- Quick Nav Cards -->
+    <div class="home-nav-section">
+      <h2 class="home-nav-title">Các Chủ Đề An Toàn Giao Thông</h2>
+      <p class="home-nav-sub">Chọn chủ đề bạn muốn tìm hiểu để bắt đầu hành trình an toàn</p>
+      <div class="home-nav-grid">
+        <div class="hn-card" onclick="showPage('importance')">
+          <div class="hn-card-top">
+            <div class="hn-emoji">🛡️</div>
+            <div>
+              <h3>Tầm Quan Trọng</h3>
+              <p>Thống kê và quy tắc cơ bản</p>
+            </div>
+          </div>
+          <div class="hn-card-footer"><span>Xem chi tiết</span><span>→</span></div>
+        </div>
+        <div class="hn-card" onclick="showPage('signals')">
+          <div class="hn-card-top">
+            <div class="hn-emoji">🚦</div>
+            <div>
+              <h3>Báo Hiệu Giao Thông</h3>
+              <p>Biển báo, đèn tín hiệu, vạch kẻ</p>
+            </div>
+          </div>
+          <div class="hn-card-footer"><span>Xem chi tiết</span><span>→</span></div>
+        </div>
+        <div class="hn-card" onclick="showPage('prediction')">
+          <div class="hn-card-top">
+            <div class="hn-emoji">🔮</div>
+            <div>
+              <h3>Dự Đoán & Phòng Tránh</h3>
+              <p>Nhận biết và xử lý nguy hiểm</p>
+            </div>
+          </div>
+          <div class="hn-card-footer"><span>Xem chi tiết</span><span>→</span></div>
+        </div>
+        <div class="hn-card" onclick="showPage('bicycle')">
+          <div class="hn-card-top">
+            <div class="hn-emoji">🚲</div>
+            <div>
+              <h3>Xe Đạp & Xe Điện</h3>
+              <p>An toàn và trang phục phù hợp</p>
+            </div>
+          </div>
+          <div class="hn-card-footer"><span>Xem chi tiết</span><span>→</span></div>
+        </div>
+        <div class="hn-card" onclick="showPage('motorbike')">
+          <div class="hn-card-top">
+            <div class="hn-emoji">🏍️</div>
+            <div>
+              <h3>Xe Mô Tô & Xe Máy</h3>
+              <p>Chuẩn bị và kỹ thuật lái xe</p>
+            </div>
+          </div>
+          <div class="hn-card-footer"><span>Xem chi tiết</span><span>→</span></div>
+        </div>
+        <div class="hn-card" onclick="showPage('rail')">
+          <div class="hn-card-top">
+            <div class="hn-emoji">🚢</div>
+            <div>
+              <h3>Đường Sắt & Đường Thủy</h3>
+              <p>An toàn trên tàu và sông biển</p>
+            </div>
+          </div>
+          <div class="hn-card-footer"><span>Xem chi tiết</span><span>→</span></div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="footer-main">
+        <div class="footer-brand">
+          <div class="footer-logo">🛡️ ATGT · Nụ Cười Ngày Mai</div>
+          <p class="footer-tagline">An toàn giao thông không chỉ là trách nhiệm cá nhân — đó là tình yêu thương dành cho
+            gia đình và cộng đồng. Hãy cùng nhau xây dựng văn hóa giao thông văn minh.</p>
+          <div class="footer-hotline">📞 Đường dây hỗ trợ ATGT: 1800 599 926</div>
+        </div>
+        <div class="footer-col">
+          <h4>Các Chủ Đề</h4>
+          <ul>
+            <li><span onclick="showPage('importance')">🛡️ Tầm Quan Trọng</span></li>
+            <li><span onclick="showPage('signals')">🚦 Báo Hiệu Giao Thông</span></li>
+            <li><span onclick="showPage('prediction')">🔮 Dự Đoán &amp; Phòng Tránh</span></li>
+            <li><span onclick="showPage('bicycle')">🚲 Xe Đạp &amp; Xe Điện</span></li>
+            <li><span onclick="showPage('motorbike')">🏍️ Xe Mô Tô &amp; Xe Máy</span></li>
+            <li><span onclick="showPage('rail')">🚢 Đường Sắt &amp; Đường Thủy</span></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Quy Tắc Nhanh</h4>
+          <ul>
+            <li><span>⛑️ Luôn đội mũ bảo hiểm</span></li>
+            <li><span>🚫 Không dùng điện thoại</span></li>
+            <li><span>🍺 Không uống rượu lái xe</span></li>
+            <li><span>🚦 Chấp hành đèn tín hiệu</span></li>
+            <li><span>⚡ Giữ đúng tốc độ</span></li>
+            <li><span>🦺 Mặc áo phản quang</span></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Số Khẩn Cấp</h4>
+          <div class="footer-emergency">
+            <div class="em-badge"><strong>113</strong><span>Cảnh sát</span></div>
+            <div class="em-badge"><strong>114</strong><span>Cứu hỏa</span></div>
+            <div class="em-badge"><strong>115</strong><span>Cấp cứu</span></div>
+          </div>
+          <ul style="margin-top:16px;">
+            <li><span>🏛️ Ủy ban ATGT Quốc gia</span></li>
+            <li><span>🚔 Cục CSGT – Bộ Công An</span></li>
+            <li><span>🛣️ Tổng cục Đường bộ VN</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 – Website giáo dục an toàn giao thông · Việt Nam</p>
+        <p class="made-with">Được tạo với <span>♥</span> vì một Việt Nam an toàn hơn</p>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ═══════════════ TRANG: TẦM QUAN TRỌNG ═══════════════ -->
+  <div id="page-importance" class="page">
+    <div class="page-content page-importance" style="position:relative;overflow:hidden;">
+      <div
+        style="position:absolute;right:5vw;top:50%;transform:translateY(-50%);font-size:18rem;opacity:0.06;pointer-events:none;">
+        🛡️</div>
+      <div class="section-label">Phần 01</div>
+      <h2 class="section-title reveal">Tầm Quan Trọng Của Việc<br>Tuân Thủ Quy Tắc ATGT Đường Bộ</h2>
+      <p class="section-desc reveal">
+        An toàn giao thông không chỉ là trách nhiệm cá nhân mà còn là nghĩa vụ với cộng đồng.
+        Mỗi người tham gia giao thông đúng quy tắc là một bước tiến tới xã hội văn minh hơn.
+      </p>
+
+      <!-- Banner Image -->
+      <div class="section-image-banner reveal">
+        <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1200&q=80"
+          alt="An toàn giao thông đường bộ">
+        <div class="img-caption">🛡️ Tuân thủ luật giao thông – bảo vệ bản thân và mọi người</div>
+      </div>
+
+      <div class="stats-grid reveal">
+        <div class="stat-card">
+          <div class="stat-num">~11K</div>
+          <div class="stat-label">Người tử vong vì TNGT mỗi năm tại Việt Nam</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">90%</div>
+          <div class="stat-label">Tai nạn có thể phòng ngừa nếu tuân thủ luật</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">#1</div>
+          <div class="stat-label">Nguyên nhân: vi phạm tốc độ & không đội mũ</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">24/7</div>
+          <div class="stat-label">Cảnh sát giao thông tuần tra bảo vệ bạn</div>
+        </div>
+      </div>
+
+      <!-- Video -->
+      <div class="section-video-embed reveal">
+        <div class="video-label">🎬 Video tuyên truyền an toàn giao thông</div>
+        <iframe src="https://www.youtube.com/embed/b6yMpCFuFis" title="An toàn giao thông" allowfullscreen
+          loading="lazy"></iframe>
+      </div>
+
+      <div class="rules-list reveal">
+        <div class="rule-item">
+          <div class="rule-icon">⛑️</div>
+          <div class="rule-text"><strong>Đội mũ bảo hiểm đúng cách</strong><span>Bắt buộc với xe máy, xe đạp điện – khóa
+              quai chắc chắn khi đội</span></div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-icon">📱</div>
+          <div class="rule-text"><strong>Không sử dụng điện thoại khi lái xe</strong><span>Tập trung 100% vào đường – 1
+              giây xao nhãng có thể là mãi mãi</span></div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-icon">🍺</div>
+          <div class="rule-text"><strong>Không uống rượu bia khi lái xe</strong><span>Theo nghị định 100: phạt tới 40
+              triệu đồng, tước bằng lái 2 năm</span></div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-icon">🚦</div>
+          <div class="rule-text"><strong>Tuân thủ tín hiệu đèn giao thông</strong><span>Dừng đúng vạch, không vượt đèn
+              đỏ dù vắng xe</span></div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-icon">⚡</div>
+          <div class="rule-text"><strong>Giữ đúng tốc độ quy định</strong><span>Tốc độ cao là nguyên nhân hàng đầu gây
+              tai nạn nghiêm trọng</span></div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-icon">↔️</div>
+          <div class="rule-text"><strong>Đi đúng làn đường</strong><span>Không vượt ẩu, nhường đường người đi bộ qua
+              đường</span></div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="footer-main">
+        <div class="footer-brand">
+          <div class="footer-logo">🛡️ ATGT · Nụ Cười Ngày Mai</div>
+          <p class="footer-tagline">An toàn giao thông không chỉ là trách nhiệm cá nhân — đó là tình yêu thương dành cho
+            gia đình và cộng đồng. Hãy cùng nhau xây dựng văn hóa giao thông văn minh.</p>
+          <div class="footer-hotline">📞 Đường dây hỗ trợ ATGT: 1800 599 926</div>
+        </div>
+        <div class="footer-col">
+          <h4>Các Chủ Đề</h4>
+          <ul>
+            <li><span onclick="showPage('importance')">🛡️ Tầm Quan Trọng</span></li>
+            <li><span onclick="showPage('signals')">🚦 Báo Hiệu Giao Thông</span></li>
+            <li><span onclick="showPage('prediction')">🔮 Dự Đoán &amp; Phòng Tránh</span></li>
+            <li><span onclick="showPage('bicycle')">🚲 Xe Đạp &amp; Xe Điện</span></li>
+            <li><span onclick="showPage('motorbike')">🏍️ Xe Mô Tô &amp; Xe Máy</span></li>
+            <li><span onclick="showPage('rail')">🚢 Đường Sắt &amp; Đường Thủy</span></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Quy Tắc Nhanh</h4>
+          <ul>
+            <li><span>⛑️ Luôn đội mũ bảo hiểm</span></li>
+            <li><span>🚫 Không dùng điện thoại</span></li>
+            <li><span>🍺 Không uống rượu lái xe</span></li>
+            <li><span>🚦 Chấp hành đèn tín hiệu</span></li>
+            <li><span>⚡ Giữ đúng tốc độ</span></li>
+            <li><span>🦺 Mặc áo phản quang</span></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Số Khẩn Cấp</h4>
+          <div class="footer-emergency">
+            <div class="em-badge"><strong>113</strong><span>Cảnh sát</span></div>
+            <div class="em-badge"><strong>114</strong><span>Cứu hỏa</span></div>
+            <div class="em-badge"><strong>115</strong><span>Cấp cứu</span></div>
+          </div>
+          <ul style="margin-top:16px;">
+            <li><span>🏛️ Ủy ban ATGT Quốc gia</span></li>
+            <li><span>🚔 Cục CSGT – Bộ Công An</span></li>
+            <li><span>🛣️ Tổng cục Đường bộ VN</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 – Website giáo dục an toàn giao thông · Việt Nam</p>
+        <p class="made-with">Được tạo với <span>♥</span> vì một Việt Nam an toàn hơn</p>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ═══════════════ TRANG: BÁO HIỆU ═══════════════ -->
+  <div id="page-signals" class="page">
+    <div class="page-content page-signals">
+      <div class="section-label" style="color:var(--sun)">Phần 02</div>
+      <h2 class="section-title reveal">Hệ Thống Báo Hiệu<br>Giao Thông Đường Bộ</h2>
+      <p class="section-desc reveal">
+        Hệ thống báo hiệu giao thông là "ngôn ngữ" chung của mọi người tham gia giao thông.
+        Hiểu và chấp hành đúng là chìa khóa để di chuyển an toàn.
+      </p>
+
+      <!-- Image banner -->
+      <div class="section-image-banner reveal">
+        <img src="https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=1200&q=80" alt="Biển báo giao thông">
+        <div class="img-caption">🚦 Hệ thống biển báo và đèn tín hiệu đường bộ Việt Nam</div>
+      </div>
+
+      <div class="signal-grid reveal">
+        <div class="signal-card card-red">
+          <div class="signal-top">
+            <div class="signal-icon-wrap">🚫</div>
+            <h3>Biển Cấm</h3>
+            <p>Hình tròn, nền trắng, viền đỏ. Quy định những điều không được phép làm trong phạm vi hiệu lực của biển.
+            </p>
+          </div>
+        </div>
+        <div class="signal-card card-yellow">
+          <div class="signal-top">
+            <div class="signal-icon-wrap">⚠️</div>
+            <h3>Biển Nguy Hiểm</h3>
+            <p>Hình tam giác, nền vàng, viền đỏ. Cảnh báo người lái về các tình huống nguy hiểm có thể xảy ra phía
+              trước.</p>
+          </div>
+        </div>
+        <div class="signal-card card-blue">
+          <div class="signal-top">
+            <div class="signal-icon-wrap">ℹ️</div>
+            <h3>Biển Hiệu Lệnh</h3>
+            <p>Hình tròn, nền xanh lam. Báo cho người tham gia giao thông biết điều bắt buộc phải tuân theo.</p>
+          </div>
+        </div>
+        <div class="signal-card card-green">
+          <div class="signal-top">
+            <div class="signal-icon-wrap">🗺️</div>
+            <h3>Biển Chỉ Dẫn</h3>
+            <p>Hình chữ nhật, nền xanh lá hoặc xanh lam. Cung cấp thông tin hướng đi, địa danh, khoảng cách.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Video -->
+      <div class="section-video-embed reveal" style="margin-top:48px;">
+        <div class="video-label" style="background:rgba(255,255,255,0.1);">🎬 Hướng dẫn đọc hiểu biển báo giao thông
+        </div>
+        <iframe src="https://www.youtube.com/embed/2Z-zS9MHhsE" title="Biển báo giao thông" allowfullscreen
+          loading="lazy"></iframe>
+      </div>
+
+      <div class="sign-types reveal">
+        <div class="sign-type"><span class="emoji">🚦</span>
+          <div><strong>Đèn Tín Hiệu</strong><span>Đỏ: Dừng · Vàng: Chuẩn bị · Xanh: Đi</span></div>
+        </div>
+        <div class="sign-type"><span class="emoji">📍</span>
+          <div><strong>Vạch Kẻ Đường</strong><span>Liền: Không vượt · Đứt: Được vượt</span></div>
+        </div>
+        <div class="sign-type"><span class="emoji">🚸</span>
+          <div><strong>Vạch Người Đi Bộ</strong><span>Nhường đường cho người đi bộ hoàn toàn</span></div>
+        </div>
+        <div class="sign-type"><span class="emoji">🔊</span>
+          <div><strong>Hiệu Lệnh CSGT</strong><span>Ưu tiên tuyệt đối hơn mọi báo hiệu khác</span></div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="footer-main">
+        <div class="footer-brand">
+          <div class="footer-logo">🛡️ ATGT · Nụ Cười Ngày Mai</div>
+          <p class="footer-tagline">An toàn giao thông không chỉ là trách nhiệm cá nhân — đó là tình yêu thương dành cho
+            gia đình và cộng đồng. Hãy cùng nhau xây dựng văn hóa giao thông văn minh.</p>
+          <div class="footer-hotline">📞 Đường dây hỗ trợ ATGT: 1800 599 926</div>
+        </div>
+        <div class="footer-col">
+          <h4>Các Chủ Đề</h4>
+          <ul>
+            <li><span onclick="showPage('importance')">🛡️ Tầm Quan Trọng</span></li>
+            <li><span onclick="showPage('signals')">🚦 Báo Hiệu Giao Thông</span></li>
+            <li><span onclick="showPage('prediction')">🔮 Dự Đoán &amp; Phòng Tránh</span></li>
+            <li><span onclick="showPage('bicycle')">🚲 Xe Đạp &amp; Xe Điện</span></li>
+            <li><span onclick="showPage('motorbike')">🏍️ Xe Mô Tô &amp; Xe Máy</span></li>
+            <li><span onclick="showPage('rail')">🚢 Đường Sắt &amp; Đường Thủy</span></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Quy Tắc Nhanh</h4>
+          <ul>
+            <li><span>⛑️ Luôn đội mũ bảo hiểm</span></li>
+            <li><span>🚫 Không dùng điện thoại</span></li>
+            <li><span>🍺 Không uống rượu lái xe</span></li>
+            <li><span>🚦 Chấp hành đèn tín hiệu</span></li>
+            <li><span>⚡ Giữ đúng tốc độ</span></li>
+            <li><span>🦺 Mặc áo phản quang</span></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Số Khẩn Cấp</h4>
+          <div class="footer-emergency">
+            <div class="em-badge"><strong>113</strong><span>Cảnh sát</span></div>
+            <div class="em-badge"><strong>114</strong><span>Cứu hỏa</span></div>
+            <div class="em-badge"><strong>115</strong><span>Cấp cứu</span></div>
+          </div>
+          <ul style="margin-top:16px;">
+            <li><span>🏛️ Ủy ban ATGT Quốc gia</span></li>
+            <li><span>🚔 Cục CSGT – Bộ Công An</span></li>
+            <li><span>🛣️ Tổng cục Đường bộ VN</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 – Website giáo dục an toàn giao thông · Việt Nam</p>
+        <p class="made-with">Được tạo với <span>♥</span> vì một Việt Nam an toàn hơn</p>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ═══════════════ TRANG: DỰ ĐOÁN & PHÒNG TRÁNH ═══════════════ -->
+  <div id="page-prediction" class="page">
+    <div class="page-content page-prediction">
+      <div class="section-label">Phần 03</div>
+      <h2 class="section-title reveal">Dự Đoán & Phòng Tránh<br>Nguy Hiểm Khi Tham Gia Giao Thông</h2>
+      <p class="section-desc reveal">
+        Lái xe an toàn không chỉ là phản xạ, mà là kỹ năng nhận biết và xử lý tình huống
+        nguy hiểm trước khi chúng xảy ra.
+      </p>
+
+      <!-- Image banner -->
+      <div class="section-image-banner reveal">
+        <img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1200&q=80"
+          alt="Lái xe an toàn ban đêm">
+        <div class="img-caption">🌙 Lái xe an toàn trong mọi điều kiện thời tiết và ánh sáng</div>
+      </div>
+
+      <div class="danger-zones reveal">
+        <div class="danger-card">
+          <div class="danger-header dh1"><span class="emoji">🌧️</span>
+            <h3>Điều Kiện Thời Tiết Xấu</h3>
+          </div>
+          <div class="danger-body">
+            <ul>
+              <li>Giảm tốc độ khi trời mưa, sương mù</li>
+              <li>Tăng khoảng cách an toàn gấp đôi</li>
+              <li>Bật đèn xe khi tầm nhìn hạn chế</li>
+              <li>Cẩn thận với vũng nước ngập mặt đường</li>
+            </ul>
+          </div>
+        </div>
+        <div class="danger-card">
+          <div class="danger-header dh2"><span class="emoji">🏙️</span>
+            <h3>Giao Lộ & Ngã Tư</h3>
+          </div>
+          <div class="danger-body">
+            <ul>
+              <li>Quan sát cả hai hướng trước khi qua</li>
+              <li>Giảm tốc độ ngay khi tiếp cận</li>
+              <li>Nhường đường theo quy tắc ưu tiên</li>
+              <li>Cảnh giác xe từ đường phụ lao ra</li>
+            </ul>
+          </div>
+        </div>
+        <div class="danger-card">
+          <div class="danger-header dh3"><span class="emoji">🌙</span>
+            <h3>Ban Đêm & Tầm Nhìn Kém</h3>
+          </div>
+          <div class="danger-body">
+            <ul>
+              <li>Dùng đèn chiếu sáng phù hợp</li>
+              <li>Chú ý người đi bộ thiếu ánh sáng</li>
+              <li>Giảm tốc trên đường tối, vắng</li>
+              <li>Không nhìn thẳng vào đèn xe ngược chiều</li>
+            </ul>
+          </div>
+        </div>
+        <div class="danger-card">
+          <div class="danger-header dh4"><span class="emoji">👶</span>
+            <h3>Khu Vực Đông Người</h3>
+          </div>
+          <div class="danger-body">
+            <ul>
+              <li>Giảm tốc khu trường học, chợ</li>
+              <li>Chú ý trẻ em có thể bất ngờ băng qua</li>
+              <li>Nhường đường cho người già, khuyết tật</li>
+              <li>Không bóp còi gây hoảng loạn</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="tips-banner reveal">
+        <div class="big-icon">💡</div>
+        <div>
+          <h3>Kỹ Thuật "Nhìn Xa – Nghĩ Gần"</h3>
+          <p style="color:rgba(255,255,255,0.7); font-size:0.92rem; margin-top:6px; margin-bottom:12px;">
+            Luôn nhìn xa phía trước ít nhất 12 giây, duy trì khoảng cách an toàn và
+            luôn có "lối thoát" trong mọi tình huống giao thông.
+          </p>
+          <div class="tips-pills">
+            <span class="pill">Quan sát 360°</span>
+            <span class="pill">Khoảng cách 3 giây</span>
+            <span class="pill">Giảm tốc đúng lúc</span>
+            <span class="pill">Tín hiệu rõ ràng</span>
+            <span class="pill">Điểm mù xe tải</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Video -->
+      <div class="section-video-embed reveal">
+        <div class="video-label">🎬 Kỹ năng phòng tránh tai nạn giao thông</div>
+        <iframe src="https://www.youtube.com/embed/pS6vfIJX8dg" title="Phòng tránh tai nạn" allowfullscreen
+          loading="lazy"></iframe>
+      </div>
+    </div>
+    <footer>
+      <div class="footer-main">
+        <div class="footer-brand">
+          <div class="footer-logo">🛡️ ATGT · Nụ Cười Ngày Mai</div>
+          <p class="footer-tagline">An toàn giao thông không chỉ là trách nhiệm cá nhân — đó là tình yêu thương dành cho
+            gia đình và cộng đồng. Hãy cùng nhau xây dựng văn hóa giao thông văn minh.</p>
+          <div class="footer-hotline">📞 Đường dây hỗ trợ ATGT: 1800 599 926</div>
+        </div>
+        <div class="footer-col">
+          <h4>Các Chủ Đề</h4>
+          <ul>
+            <li><span onclick="showPage('importance')">🛡️ Tầm Quan Trọng</span></li>
+            <li><span onclick="showPage('signals')">🚦 Báo Hiệu Giao Thông</span></li>
+            <li><span onclick="showPage('prediction')">🔮 Dự Đoán &amp; Phòng Tránh</span></li>
+            <li><span onclick="showPage('bicycle')">🚲 Xe Đạp &amp; Xe Điện</span></li>
+            <li><span onclick="showPage('motorbike')">🏍️ Xe Mô Tô &amp; Xe Máy</span></li>
+            <li><span onclick="showPage('rail')">🚢 Đường Sắt &amp; Đường Thủy</span></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Quy Tắc Nhanh</h4>
+          <ul>
+            <li><span>⛑️ Luôn đội mũ bảo hiểm</span></li>
+            <li><span>🚫 Không dùng điện thoại</span></li>
+            <li><span>🍺 Không uống rượu lái xe</span></li>
+            <li><span>🚦 Chấp hành đèn tín hiệu</span></li>
+            <li><span>⚡ Giữ đúng tốc độ</span></li>
+            <li><span>🦺 Mặc áo phản quang</span></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Số Khẩn Cấp</h4>
+          <div class="footer-emergency">
+            <div class="em-badge"><strong>113</strong><span>Cảnh sát</span></div>
+            <div class="em-badge"><strong>114</strong><span>Cứu hỏa</span></div>
+            <div class="em-badge"><strong>115</strong><span>Cấp cứu</span></div>
+          </div>
+          <ul style="margin-top:16px;">
+            <li><span>🏛️ Ủy ban ATGT Quốc gia</span></li>
+            <li><span>🚔 Cục CSGT – Bộ Công An</span></li>
+            <li><span>🛣️ Tổng cục Đường bộ VN</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 – Website giáo dục an toàn giao thông · Việt Nam</p>
+        <p class="made-with">Được tạo với <span>♥</span> vì một Việt Nam an toàn hơn</p>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ═══════════════ TRANG: XE ĐẠP ═══════════════ -->
+  <div id="page-bicycle" class="page">
+    <div class="page-content page-bicycle" style="position:relative;overflow:hidden;">
+      <div style="position:absolute;right:-20px;bottom:-20px;font-size:22rem;opacity:0.04;pointer-events:none;">🚲</div>
+      <div class="section-label" style="color:#06D6A0">Phần 04</div>
+      <h2 class="section-title reveal">Cách Đi Xe Đạp, Xe Đạp Điện<br>An Toàn & Trang Phục Phù Hợp</h2>
+      <p class="section-desc reveal">
+        Xe đạp và xe đạp điện ngày càng phổ biến, đặc biệt với học sinh.
+        Đi đúng cách không chỉ bảo vệ bạn mà còn bảo vệ người xung quanh.
+      </p>
+
+      <!-- Image banner -->
+      <div class="section-image-banner reveal">
+        <img src="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=1200&q=80" alt="Đi xe đạp an toàn">
+        <div class="img-caption">🚲 Trang bị đầy đủ và đi đúng luật khi điều khiển xe đạp</div>
+      </div>
+
+      <div class="two-col reveal">
+        <div>
+          <h3
+            style="font-family:'Baloo 2',cursive; font-weight:800; font-size:1.3rem; color:var(--sky); margin-bottom:20px;">
+            ✅ Nguyên Tắc Đi Xe Đạp An Toàn
+          </h3>
+          <ul class="checklist">
+            <li><span class="ci">⛑️</span> Luôn đội mũ bảo hiểm đạt chuẩn, cài quai đúng cách</li>
+            <li><span class="ci">🛣️</span> Đi sát lề phải, đúng làn đường dành cho xe thô sơ</li>
+            <li><span class="ci">💡</span> Bật đèn ban đêm và đeo dải phản quang khi trời tối</li>
+            <li><span class="ci">🤝</span> Ra tín hiệu tay rõ ràng khi rẽ hoặc chuyển làn</li>
+            <li><span class="ci">🚫</span> Không dùng điện thoại, không đeo tai nghe cả hai bên</li>
+            <li><span class="ci">👁️</span> Kiểm tra phanh, lốp, đèn trước mỗi chuyến đi</li>
+            <li><span class="ci">🌧️</span> Giảm tốc độ khi đường ướt, tăng khoảng cách</li>
+            <li><span class="ci">🚸</span> Xuống xe dắt bộ tại nơi đông người và vạch người đi bộ</li>
+          </ul>
+        </div>
+        <div>
+          <h3
+            style="font-family:'Baloo 2',cursive; font-weight:800; font-size:1.3rem; color:var(--sky); margin-bottom:20px;">
+            👗 Trang Phục Khi Tham Gia Giao Thông
+          </h3>
+          <div class="gear-grid">
+            <div class="gear-item">
+              <div class="gicon">⛑️</div><strong>Mũ Bảo Hiểm</strong><span>Đạt chuẩn QCVN, vừa đầu, cài quai chắc</span>
+            </div>
+            <div class="gear-item">
+              <div class="gicon">🥋</div><strong>Áo Khoác Dài</strong><span>Bảo vệ khi trượt ngã, chống nắng, mưa</span>
+            </div>
+            <div class="gear-item">
+              <div class="gicon">🧤</div><strong>Găng Tay</strong><span>Bảo vệ lòng bàn tay khi ngã, giảm tê cứng</span>
+            </div>
+            <div class="gear-item">
+              <div class="gicon">👟</div><strong>Giày Kín Mũi</strong><span>Không đi dép lê khi điều khiển xe</span>
+            </div>
+            <div class="gear-item">
+              <div class="gicon">😷</div><strong>Khẩu Trang</strong><span>Bảo vệ đường hô hấp khỏi bụi ô nhiễm</span>
+            </div>
+            <div class="gear-item">
+              <div class="gicon">🦺</div><strong>Áo Phản Quang</strong><span>Tăng khả năng hiển thị ban đêm, sương
+                mù</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="footer-main">
+        <div class="footer-brand">
+          <div class="footer-logo">🛡️ ATGT · Nụ Cười Ngày Mai</div>
+          <p class="footer-tagline">An toàn giao thông không chỉ là trách nhiệm cá nhân — đó là tình yêu thương dành cho
+            gia đình và cộng đồng. Hãy cùng nhau xây dựng văn hóa giao thông văn minh.</p>
+          <div class="footer-hotline">📞 Đường dây hỗ trợ ATGT: 1800 599 926</div>
+        </div>
+        <div class="footer-col">
+          <h4>Các Chủ Đề</h4>
+          <ul>
+            <li><span onclick="showPage('importance')">🛡️ Tầm Quan Trọng</span></li>
+            <li><span onclick="showPage('signals')">🚦 Báo Hiệu Giao Thông</span></li>
+            <li><span onclick="showPage('prediction')">🔮 Dự Đoán &amp; Phòng Tránh</span></li>
+            <li><span onclick="showPage('bicycle')">🚲 Xe Đạp &amp; Xe Điện</span></li>
+            <li><span onclick="showPage('motorbike')">🏍️ Xe Mô Tô &amp; Xe Máy</span></li>
+            <li><span onclick="showPage('rail')">🚢 Đường Sắt &amp; Đường Thủy</span></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Quy Tắc Nhanh</h4>
+          <ul>
+            <li><span>⛑️ Luôn đội mũ bảo hiểm</span></li>
+            <li><span>🚫 Không dùng điện thoại</span></li>
+            <li><span>🍺 Không uống rượu lái xe</span></li>
+            <li><span>🚦 Chấp hành đèn tín hiệu</span></li>
+            <li><span>⚡ Giữ đúng tốc độ</span></li>
+            <li><span>🦺 Mặc áo phản quang</span></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Số Khẩn Cấp</h4>
+          <div class="footer-emergency">
+            <div class="em-badge"><strong>113</strong><span>Cảnh sát</span></div>
+            <div class="em-badge"><strong>114</strong><span>Cứu hỏa</span></div>
+            <div class="em-badge"><strong>115</strong><span>Cấp cứu</span></div>
+          </div>
+          <ul style="margin-top:16px;">
+            <li><span>🏛️ Ủy ban ATGT Quốc gia</span></li>
+            <li><span>🚔 Cục CSGT – Bộ Công An</span></li>
+            <li><span>🛣️ Tổng cục Đường bộ VN</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 – Website giáo dục an toàn giao thông · Việt Nam</p>
+        <p class="made-with">Được tạo với <span>♥</span> vì một Việt Nam an toàn hơn</p>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ═══════════════ TRANG: XE MÁY ═══════════════ -->
+  <div id="page-motorbike" class="page">
+    <div class="page-content page-motorbike" style="position:relative;overflow:hidden;">
+      <div
+        style="position:absolute;left:-30px;top:50%;transform:translateY(-50%);font-size:20rem;opacity:0.05;pointer-events:none;">
+        🏍️</div>
+      <div class="section-label">Phần 05</div>
+      <h2 class="section-title reveal">Chuẩn Bị Điều Khiển<br>Xe Mô Tô, Xe Gắn Máy An Toàn</h2>
+      <p class="section-desc reveal">
+        Xe máy là phương tiện phổ biến nhất Việt Nam, nhưng cũng là phương tiện
+        có tỷ lệ tai nạn cao nhất. Chuẩn bị kỹ trước khi lên đường là sống còn.
+      </p>
+
+      <!-- Image banner -->
+      <div class="section-image-banner reveal">
+        <img src="https://images.unsplash.com/photo-1609630875171-b1321377ee65?w=1200&q=80"
+          alt="Đội mũ bảo hiểm xe máy">
+        <div class="img-caption">🏍️ Luôn đội mũ bảo hiểm đúng cách khi điều khiển xe máy</div>
+      </div>
+
+      <div class="steps-flow reveal">
+        <div class="step-item">
+          <div class="step-num">1<span class="semoji">📋</span></div>
+          <h3>Giấy Tờ & Bằng Lái</h3>
+          <p>Bằng lái phù hợp, đăng ký, bảo hiểm còn hiệu lực. Luôn mang theo bên người.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2<span class="semoji">🔧</span></div>
+          <h3>Kiểm Tra Xe</h3>
+          <p>Phanh, lốp, đèn, gương chiếu hậu, xăng. Kiểm tra 5 điểm này mỗi sáng.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3<span class="semoji">👕</span></div>
+          <h3>Trang Bị Cá Nhân</h3>
+          <p>Mũ bảo hiểm, găng tay, áo khoác, giày kín. Không mặc áo thụng, váy dài.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-num">4<span class="semoji">🧠</span></div>
+          <h3>Tinh Thần & Sức Khỏe</h3>
+          <p>Không lái khi buồn ngủ, mệt mỏi, căng thẳng, hoặc sau khi uống rượu bia.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-num">5<span class="semoji">🗺️</span></div>
+          <h3>Lên Kế Hoạch</h3>
+          <p>Xem thời tiết, chọn lộ trình phù hợp, thông báo cho người thân khi đi xa.</p>
+        </div>
+      </div>
+
+      <div class="moto-rules reveal">
+        <div class="moto-rule">
+          <div class="ri">🚗</div><strong>Khoảng Cách An Toàn</strong><span>Cách xe phía trước tối thiểu 1 xe ở tốc độ
+            thành phố, tăng theo tốc độ</span>
+        </div>
+        <div class="moto-rule">
+          <div class="ri">↩️</div><strong>Kỹ Thuật Phanh Đúng</strong><span>Phanh cả hai bánh cùng lúc, phanh trước nhẹ
+            hơn, không phanh gấp</span>
+        </div>
+        <div class="moto-rule">
+          <div class="ri">🌀</div><strong>Xử Lý Cua Vòng</strong><span>Giảm tốc trước vào cua, không phanh trong cua,
+            nhìn theo hướng muốn đi</span>
+        </div>
+        <div class="moto-rule">
+          <div class="ri">🚛</div><strong>Xe Tải, Xe Buýt</strong><span>Không đi vào điểm mù, không vượt từ bên phải,
+            giữ khoảng cách xa</span>
+        </div>
+        <div class="moto-rule">
+          <div class="ri">🌧️</div><strong>Đường Trơn, Ướt</strong><span>Giảm tốc độ 30-50%, tránh nắp cống, vạch sơn
+            khi trời mưa</span>
+        </div>
+        <div class="moto-rule">
+          <div class="ri">👨‍👩‍👧</div><strong>Chở Người Sau</strong><span>Người sau bám chặt, đội mũ, không chở quá 1
+            người sau (trừ trẻ em)</span>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="footer-main">
+        <div class="footer-brand">
+          <div class="footer-logo">🛡️ ATGT · Nụ Cười Ngày Mai</div>
+          <p class="footer-tagline">An toàn giao thông không chỉ là trách nhiệm cá nhân — đó là tình yêu thương dành cho
+            gia đình và cộng đồng. Hãy cùng nhau xây dựng văn hóa giao thông văn minh.</p>
+          <div class="footer-hotline">📞 Đường dây hỗ trợ ATGT: 1800 599 926</div>
+        </div>
+        <div class="footer-col">
+          <h4>Các Chủ Đề</h4>
+          <ul>
+            <li><span onclick="showPage('importance')">🛡️ Tầm Quan Trọng</span></li>
+            <li><span onclick="showPage('signals')">🚦 Báo Hiệu Giao Thông</span></li>
+            <li><span onclick="showPage('prediction')">🔮 Dự Đoán &amp; Phòng Tránh</span></li>
+            <li><span onclick="showPage('bicycle')">🚲 Xe Đạp &amp; Xe Điện</span></li>
+            <li><span onclick="showPage('motorbike')">🏍️ Xe Mô Tô &amp; Xe Máy</span></li>
+            <li><span onclick="showPage('rail')">🚢 Đường Sắt &amp; Đường Thủy</span></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Quy Tắc Nhanh</h4>
+          <ul>
+            <li><span>⛑️ Luôn đội mũ bảo hiểm</span></li>
+            <li><span>🚫 Không dùng điện thoại</span></li>
+            <li><span>🍺 Không uống rượu lái xe</span></li>
+            <li><span>🚦 Chấp hành đèn tín hiệu</span></li>
+            <li><span>⚡ Giữ đúng tốc độ</span></li>
+            <li><span>🦺 Mặc áo phản quang</span></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Số Khẩn Cấp</h4>
+          <div class="footer-emergency">
+            <div class="em-badge"><strong>113</strong><span>Cảnh sát</span></div>
+            <div class="em-badge"><strong>114</strong><span>Cứu hỏa</span></div>
+            <div class="em-badge"><strong>115</strong><span>Cấp cứu</span></div>
+          </div>
+          <ul style="margin-top:16px;">
+            <li><span>🏛️ Ủy ban ATGT Quốc gia</span></li>
+            <li><span>🚔 Cục CSGT – Bộ Công An</span></li>
+            <li><span>🛣️ Tổng cục Đường bộ VN</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 – Website giáo dục an toàn giao thông · Việt Nam</p>
+        <p class="made-with">Được tạo với <span>♥</span> vì một Việt Nam an toàn hơn</p>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ═══════════════ TRANG: ĐƯỜNG SẮT & ĐƯỜNG THỦY ═══════════════ -->
+  <div id="page-rail" class="page">
+    <div class="page-content page-rail">
+      <div class="section-label">Phần 06</div>
+      <h2 class="section-title reveal">An Toàn Giao Thông<br>Đường Sắt & Đường Thủy</h2>
+      <p class="section-desc reveal">
+        Ngoài đường bộ, đường sắt và đường thủy cũng tiềm ẩn nhiều nguy hiểm mà
+        người dân cần hiểu và chủ động phòng tránh.
+      </p>
+
+      <!-- Image Banner -->
+      <div class="section-image-banner reveal">
+        <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=1200&q=80"
+          alt="Giao thông đường sắt và đường thủy">
+        <div class="img-caption">🚂⛵ An toàn trên tuyến đường sắt và giao thông đường thủy</div>
+      </div>
+
+      <div class="transport-tabs reveal">
+        <button class="tab-btn active" onclick="switchTab('rail')">🚂 Đường Sắt</button>
+        <button class="tab-btn" onclick="switchTab('water')">🚢 Đường Thủy</button>
+      </div>
+
+      <div class="tab-content active" id="tab-rail">
+        <div class="rail-water-grid">
+          <div class="rw-card">
+            <div class="rw-header" style="background:linear-gradient(135deg,#4A1C00,#8B3A00);">
+              <span class="ricon">🚦</span>
+              <div>
+                <h3>Tại Giao Cắt Đường Sắt</h3>
+                <p>Điểm nguy hiểm nhất với người dân</p>
+              </div>
+            </div>
+            <div class="rw-body">
+              <div class="rw-rule"><span class="dot" style="background:#C0253D">✓</span> Dừng lại cách đường ray ít nhất
+                5m khi có đèn/chuông</div>
+              <div class="rw-rule"><span class="dot" style="background:#C0253D">✓</span> Tuyệt đối không vượt rào chắn
+                hay đèn đỏ</div>
+              <div class="rw-rule"><span class="dot" style="background:#C0253D">✓</span> Nhìn cả hai hướng trước khi qua
+                dù không có tàu</div>
+              <div class="rw-rule"><span class="dot" style="background:#C0253D">✓</span> Không đi qua khi nghe tiếng còi
+                tàu, dù rào chưa hạ</div>
+            </div>
+          </div>
+          <div class="rw-card">
+            <div class="rw-header" style="background:linear-gradient(135deg,#1A0060,#3A0090);">
+              <span class="ricon">🚉</span>
+              <div>
+                <h3>Tại Nhà Ga & Trên Tàu</h3>
+                <p>An toàn từ khi lên đến khi xuống</p>
+              </div>
+            </div>
+            <div class="rw-body">
+              <div class="rw-rule"><span class="dot" style="background:#4A00C0">✓</span> Đứng sau vạch vàng khi chờ tàu
+                trên sân ga</div>
+              <div class="rw-rule"><span class="dot" style="background:#4A00C0">✓</span> Nhường lối đi, không chạy trong
+                ga và trên tàu</div>
+              <div class="rw-rule"><span class="dot" style="background:#4A00C0">✓</span> Không thò tay, đầu ra ngoài cửa
+                sổ khi tàu chạy</div>
+              <div class="rw-rule"><span class="dot" style="background:#4A00C0">✓</span> Không ném vật lạ từ tàu, gây
+                nguy hiểm cho người ngoài</div>
+            </div>
+          </div>
+          <div class="rw-card">
+            <div class="rw-header" style="background:linear-gradient(135deg,#003A30,#006050);">
+              <span class="ricon">📍</span>
+              <div>
+                <h3>Sinh Hoạt Gần Đường Sắt</h3>
+                <p>Cộng đồng dân cư dọc tuyến đường sắt</p>
+              </div>
+            </div>
+            <div class="rw-body">
+              <div class="rw-rule"><span class="dot" style="background:#006050">✓</span> Hành lang an toàn đường sắt:
+                không xây dựng, trồng cây</div>
+              <div class="rw-rule"><span class="dot" style="background:#006050">✓</span> Không để trẻ em chơi gần đường
+                ray</div>
+              <div class="rw-rule"><span class="dot" style="background:#006050">✓</span> Báo cáo ngay khi phát hiện sự
+                cố trên đường ray</div>
+              <div class="rw-rule"><span class="dot" style="background:#006050">✓</span> Không cản trở tầm nhìn tại các
+                điểm giao cắt</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-water">
+        <div class="rail-water-grid">
+          <div class="rw-card">
+            <div class="rw-header" style="background:linear-gradient(135deg,#002060,#003DA0);">
+              <span class="ricon">⛵</span>
+              <div>
+                <h3>Khi Đi Thuyền, Tàu Thủy</h3>
+                <p>An toàn cho mọi chuyến sông, biển</p>
+              </div>
+            </div>
+            <div class="rw-body">
+              <div class="rw-rule"><span class="dot" style="background:#003DA0">✓</span> Luôn mặc áo phao khi lên
+                thuyền, đặc biệt trẻ em</div>
+              <div class="rw-rule"><span class="dot" style="background:#003DA0">✓</span> Không ngồi trên mạn thuyền hoặc
+                đứng khi thuyền chạy</div>
+              <div class="rw-rule"><span class="dot" style="background:#003DA0">✓</span> Kiểm tra thời tiết, không đi
+                khi có bão hay gió mạnh</div>
+              <div class="rw-rule"><span class="dot" style="background:#003DA0">✓</span> Không lên thuyền quá tải hoặc
+                thiếu thiết bị an toàn</div>
+            </div>
+          </div>
+          <div class="rw-card">
+            <div class="rw-header" style="background:linear-gradient(135deg,#004060,#0070A0);">
+              <span class="ricon">🏊</span>
+              <div>
+                <h3>Đuối Nước & Cứu Hộ</h3>
+                <p>Phòng tránh và xử lý khẩn cấp</p>
+              </div>
+            </div>
+            <div class="rw-body">
+              <div class="rw-rule"><span class="dot" style="background:#0070A0">✓</span> Không bơi một mình, không bơi ở
+                nơi chưa biết độ sâu</div>
+              <div class="rw-rule"><span class="dot" style="background:#0070A0">✓</span> Ném phao, dây cứu hộ – không
+                nhảy xuống nếu không biết bơi</div>
+              <div class="rw-rule"><span class="dot" style="background:#0070A0">✓</span> Hô to gọi người xung quanh và
+                gọi 113/114 khẩn cấp</div>
+              <div class="rw-rule"><span class="dot" style="background:#0070A0">✓</span> Học CPR – kỹ năng hồi sinh cơ
+                bản có thể cứu người</div>
+            </div>
+          </div>
+          <div class="rw-card">
+            <div class="rw-header" style="background:linear-gradient(135deg,#003050,#005080);">
+              <span class="ricon">⚓</span>
+              <div>
+                <h3>Quy Tắc Trên Sông, Biển</h3>
+                <p>Luật giao thông đường thủy nội địa</p>
+              </div>
+            </div>
+            <div class="rw-body">
+              <div class="rw-rule"><span class="dot" style="background:#005080">✓</span> Đi đúng luồng, nhường đường tàu
+                lớn, tàu ngược dòng</div>
+              <div class="rw-rule"><span class="dot" style="background:#005080">✓</span> Bật đèn tín hiệu ban đêm và
+                trong điều kiện tầm nhìn kém</div>
+              <div class="rw-rule"><span class="dot" style="background:#005080">✓</span> Không neo đậu, đỗ thuyền tại
+                nơi cấm hoặc chắn luồng</div>
+              <div class="rw-rule"><span class="dot" style="background:#005080">✓</span> Mang đủ giấy tờ: đăng kiểm,
+                bằng lái tàu, bảo hiểm</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="warn-box reveal">
+        <span class="wi">⚠️</span>
+        <div>
+          <h3>Số Khẩn Cấp Cần Nhớ</h3>
+          <p>
+            <strong>113</strong> – Cảnh sát &nbsp;·&nbsp;
+            <strong>114</strong> – Cứu hỏa &nbsp;·&nbsp;
+            <strong>115</strong> – Cấp cứu &nbsp;·&nbsp;
+            <strong>1800 599 926</strong> – Đường dây hỗ trợ ATGT<br>
+            Hãy lưu ngay vào điện thoại. Một cú gọi đúng lúc có thể cứu một mạng người.
+          </p>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="footer-main">
+        <div class="footer-brand">
+          <div class="footer-logo">🛡️ ATGT · Nụ Cười Ngày Mai</div>
+          <p class="footer-tagline">An toàn giao thông không chỉ là trách nhiệm cá nhân — đó là tình yêu thương dành cho
+            gia đình và cộng đồng. Hãy cùng nhau xây dựng văn hóa giao thông văn minh.</p>
+          <div class="footer-hotline">📞 Đường dây hỗ trợ ATGT: 1800 599 926</div>
+        </div>
+        <div class="footer-col">
+          <h4>Các Chủ Đề</h4>
+          <ul>
+            <li><span onclick="showPage('importance')">🛡️ Tầm Quan Trọng</span></li>
+            <li><span onclick="showPage('signals')">🚦 Báo Hiệu Giao Thông</span></li>
+            <li><span onclick="showPage('prediction')">🔮 Dự Đoán &amp; Phòng Tránh</span></li>
+            <li><span onclick="showPage('bicycle')">🚲 Xe Đạp &amp; Xe Điện</span></li>
+            <li><span onclick="showPage('motorbike')">🏍️ Xe Mô Tô &amp; Xe Máy</span></li>
+            <li><span onclick="showPage('rail')">🚢 Đường Sắt &amp; Đường Thủy</span></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Quy Tắc Nhanh</h4>
+          <ul>
+            <li><span>⛑️ Luôn đội mũ bảo hiểm</span></li>
+            <li><span>🚫 Không dùng điện thoại</span></li>
+            <li><span>🍺 Không uống rượu lái xe</span></li>
+            <li><span>🚦 Chấp hành đèn tín hiệu</span></li>
+            <li><span>⚡ Giữ đúng tốc độ</span></li>
+            <li><span>🦺 Mặc áo phản quang</span></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Số Khẩn Cấp</h4>
+          <div class="footer-emergency">
+            <div class="em-badge"><strong>113</strong><span>Cảnh sát</span></div>
+            <div class="em-badge"><strong>114</strong><span>Cứu hỏa</span></div>
+            <div class="em-badge"><strong>115</strong><span>Cấp cứu</span></div>
+          </div>
+          <ul style="margin-top:16px;">
+            <li><span>🏛️ Ủy ban ATGT Quốc gia</span></li>
+            <li><span>🚔 Cục CSGT – Bộ Công An</span></li>
+            <li><span>🛣️ Tổng cục Đường bộ VN</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 – Website giáo dục an toàn giao thông · Việt Nam</p>
+        <p class="made-with">Được tạo với <span>♥</span> vì một Việt Nam an toàn hơn</p>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // ── Stars (hero) ──
+    const starsEl = document.getElementById('stars');
+    if (starsEl) {
+      for (let i = 0; i < 60; i++) {
+        const s = document.createElement('div');
+        s.className = 'star';
+        const size = Math.random() * 3 + 1;
+        s.style.cssText = `width:${size}px;height:${size}px;left:${Math.random() * 100}%;top:${Math.random() * 70}%;--d:${2 + Math.random() * 3}s;--delay:${Math.random() * 4}s;`;
+        starsEl.appendChild(s);
+      }
+    }
+
+    // ── Hamburger ──
+    function toggleMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const btn = document.getElementById('hamburger');
+      menu.classList.toggle('open');
+      btn.classList.toggle('open');
+      document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+    }
+
+    // ── Page navigation ──
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(a => a.classList.remove('active'));
+      const target = document.getElementById('page-' + id);
+      if (target) {
+        target.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      document.querySelectorAll(`[data-page="${id}"]`).forEach(el => el.classList.add('active'));
+      // close mobile menu if open
+      const menu = document.getElementById('mobileMenu');
+      const btn = document.getElementById('hamburger');
+      if (menu.classList.contains('open')) {
+        menu.classList.remove('open');
+        btn.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+      setTimeout(triggerReveals, 100);
+    }
+
+    // ── Scroll reveal ──
+    function triggerReveals() {
+      const reveals = document.querySelectorAll('.page.active .reveal:not(.visible)');
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.08 });
+      reveals.forEach(el => io.observe(el));
+    }
+    triggerReveals();
+
+    // ── Tabs (rail-water) ──
+    function switchTab(name) {
+      document.querySelectorAll('#page-rail .tab-content').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('#page-rail .tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + name).classList.add('active');
+      event.target.classList.add('active');
+    }
+  </script>
+</body>
+
+</html>
