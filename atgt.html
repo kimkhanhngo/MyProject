@@ -1800,8 +1800,8 @@
       <!-- Video -->
       <div class="section-video-embed reveal">
         <div class="video-label">🎬 Video tuyên truyền an toàn giao thông</div>
-        <iframe src="https://kimkhanhngo.github.io/MyProject/vd1.mp4" title="An toàn giao thông" allowfullscreen
-          loading="lazy"></iframe>
+        <video src="https://kimkhanhngo.github.io/MyProject/vd1.mp4" title="An toàn giao thông" controls
+          loading="lazy" style="width:100%;aspect-ratio:16/9;display:block;background:#000;"></video>
       </div>
 
       <div class="rules-list reveal">
@@ -1941,8 +1941,8 @@
       <div class="section-video-embed reveal" style="margin-top:48px;">
         <div class="video-label" style="background:rgba(255,255,255,0.1);">🎬 Hướng dẫn đọc hiểu biển báo giao thông
         </div>
-        <iframe src="https://kimkhanhngo.github.io/MyProject/vd2.mp4" title="Biển báo giao thông" allowfullscreen
-          loading="lazy"></iframe>
+        <video src="https://kimkhanhngo.github.io/MyProject/vd2.mp4" title="Biển báo giao thông" controls
+          loading="lazy" style="width:100%;aspect-ratio:16/9;display:block;background:#000;"></video>
       </div>
 
       <div class="sign-types reveal">
@@ -2104,8 +2104,8 @@
       <!-- Video -->
       <div class="section-video-embed reveal">
         <div class="video-label">🎬 Kỹ năng phòng tránh tai nạn giao thông</div>
-        <iframe src="https://kimkhanhngo.github.io/MyProject/vd3.mp4" title="Phòng tránh tai nạn" allowfullscreen
-          loading="lazy"></iframe>
+        <video src="https://kimkhanhngo.github.io/MyProject/vd3.mp4" title="Phòng tránh tai nạn" controls
+          loading="lazy" style="width:100%;aspect-ratio:16/9;display:block;background:#000;"></video>
       </div>
     </div>
     <footer>
@@ -2632,8 +2632,19 @@
       document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
     }
 
+    // ── Pause all videos ──
+    function pauseAllVideos() {
+      document.querySelectorAll('video').forEach(v => { if (!v.paused) v.pause(); });
+    }
+
+    // ── Dừng video khi chuyển tab / thu nhỏ trình duyệt ──
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) pauseAllVideos();
+    });
+
     // ── Page navigation ──
     function showPage(id) {
+      pauseAllVideos(); // dừng video khi chuyển trang
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(a => a.classList.remove('active'));
       const target = document.getElementById('page-' + id);
